@@ -205,6 +205,16 @@ app.get('/getfiles',function(req,res){
 
 });
 
+
+app.get('/download',function(req,res){
+  console.log(req.query.url)
+  var file = fs.createWriteStream("file.csv");
+  var request = http.get(req.query.url, function(response) {
+    req.pipe(file);
+  });
+});
+
+
 app.post('/upload',function(req,res){
     upload(req,res,function(err) {
         if(err) {
