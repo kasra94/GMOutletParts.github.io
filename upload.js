@@ -47,7 +47,7 @@ var parser = parse({delimiter: ','}, function (err, data) {
   var datetime = new Date();
   // console.log(datetime);
   var csvStream = csv.createWriteStream({headers: true, quoteColumns: {'Product Description': true}}),
-  writableStream = fs.createWriteStream("outputfiles/Output_" + datetime + ".csv");
+  writableStream = fs.createWriteStream("outputfiles/outputfile.csv");
  
   writableStream.on("finish", function(){
     console.log("DONE!");
@@ -240,7 +240,7 @@ app.post('/upload',function(req,res){
         var datetime = new Date();
         // console.log(datetime);
         var csvStream = csv.createWriteStream({headers: true, quoteColumns: {'Product Description': true}}),
-        writableStream = fs.createWriteStream("outputfiles/Output_" + datetime + ".csv");
+        writableStream = fs.createWriteStream("outputfiles/outputfile.csv");
        
         writableStream.on("finish", function(){
           console.log("DONE!");
