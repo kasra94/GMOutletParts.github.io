@@ -1,1 +1,106 @@
-hi
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>GM Outlet Parts</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="css/speech-input.css">
+</head>
+<body>
+
+  <nav role="navigation" style="height: 109px; background: black">
+    <div class="nav-wrapper container">
+      <img src="logo.png" height="109px" width="452px" />
+      <!-- <a id="logo-container" href="#" class="brand-logo" style="color: white;">Spemco Upload new CSV</a> -->
+      <ul class="right hide-on-med-and-down">
+        <li style="color: #999; font-size: 20px">Got Questions? We Got Answers.</li>
+        <br/>
+        <li style="color: #FFFF00; font-size: 12px">1-866-702-4024 Mon & Thu 8am till 9pm Tue, Wed & Fri, 8am till 6pm</li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li style="color: #999;"></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    <br/>
+    <br/>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section">
+
+     <div class="row">
+        <div class="input-field col s12">
+          <h5>
+            This website helps you make www.edrinkeperformance.com <br/>
+            consistent with www.gmoutletparts.com
+          </h5>
+        
+        <div id="uploadingInfoYes" style="display: none;" >
+          <h4>
+            Success. File is uploaded
+          </h4>
+        </div>
+        <div id="uploadingInfoNo" style="display: none;" >
+          <h4>
+            Error uploading file
+          </h4>  
+        </div>
+          <form id        =  "uploadForm"
+            enctype   =  "multipart/form-data"
+            action    =  "http://localhost:5000/upload"
+            method    =  "post"
+          >
+          <input type="file" name="userPhoto" />
+          <input type="submit" value="Upload" name="submit">
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-2.1.1.min.js"></script>
+
+<script type="text/javascript">
+          function toggle_visibility(id, view) {
+//action    =  "http://localhost:5000/upload"
+             var e = document.getElementById(id);
+             if(view == 'hide')
+                e.style.display = 'none';
+             else
+                e.style.display = 'block';
+          }
+          function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+          }
+          if(getURLParameter('uploaded') == 'false'){
+            toggle_visibility('uploadingInfoNo', 'show');
+            toggle_visibility('uploadingInfoYes', 'hide');
+          } else if(getURLParameter('uploaded') != null){
+            $("#uploadingInfoYes").empty();
+            $("#uploadingInfoYes").append("<h4>Success, " + getURLParameter('uploaded') + " records entered</h4>");
+            toggle_visibility('uploadingInfoYes', 'show');
+            toggle_visibility('uploadingInfoNo', 'hide');
+
+          }else{
+            toggle_visibility('uploadingInfoNo', 'hide');
+            toggle_visibility('uploadingInfoYes', 'hide');
+          }
+
+        </script>
+ 
+
+
+  <!--  Scripts-->
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>
