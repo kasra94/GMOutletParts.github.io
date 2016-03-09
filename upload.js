@@ -244,7 +244,7 @@ app.post('/upload',function(req,res){
        
         writableStream.on("finish", function(){
           console.log("DONE!");
-          res.redirect('http://GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
+          // res.redirect('http://GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
 
         });
          
@@ -377,7 +377,8 @@ app.post('/upload',function(req,res){
           
           callback();
         });
-
+        res.redirect('http://GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
+        
     });
     fs.createReadStream(inputFile).pipe(parser);
 
