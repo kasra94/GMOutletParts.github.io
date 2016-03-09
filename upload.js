@@ -39,6 +39,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.listen(port);
+app.timeout = 100000;
 console.log('Listening at ' + port);
 var records = [];
 
@@ -228,9 +229,7 @@ app.post('/upload',function(req,res){
     upload(req,res,function(err) {
         if(err) {
           console.log(err)
-            // return res.end("Error uploading file.");
-            // res.redirect('http://localhost/SpemcoStockCheck/FrontEnd/upload.html?uploaded=false');
-            res.redirect('http://localhost/scrap-gmoutletparts.com/upload.html?uploaded=false');
+            res.redirect('http://localhost/GMOutletParts.github.io/upload.html?uploaded=false');
         }
         console.log('success...')
         records = [];
@@ -250,7 +249,7 @@ app.post('/upload',function(req,res){
        
         writableStream.on("finish", function(){
           console.log("DONE!");
-          res.redirect('http://localhost/scrap-gmoutletparts.com/showfiles.html?uploaded=' + (totalLength - 1));
+          res.redirect('http://localhost/GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
 
         });
          

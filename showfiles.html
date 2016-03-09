@@ -52,8 +52,12 @@
         </div>
 
         <h5>
-            These are file archives, downloaded the latest one<br/>
-          </h5>
+          These are file archives, download the latest one<br/>
+        </h5>
+
+        <h5 id="showFilesAndLinks">
+          Loading files ...
+        </h5>
 
         </div>
       </div>
@@ -63,8 +67,35 @@
   <script src="js/jquery-2.1.1.min.js"></script>
 
 <script type="text/javascript">
+  function getAllFilesFromServer(){
+
+    $.ajax({
+      type: "GET",
+      url: "https://gmoutletparts.herokuapp.com/getfiles",
+
+      success: function(result){
+          console.log(result);
+          var displayHTML = '';
+          for(var i=result.length-1; i>=0; i--){
+            var nameOfFile = result[i].substring(17, result[i].length);
+            var urlOfFile = result[i].substring(5, result[i].length);
+            displayHTML += '<a href="https://gmoutletparts.herokuapp.com/download?url=' +
+                            urlOfFile +
+                            '">' +
+                            nameOfFile + 
+                            '</a><br/>';
+          }
+          // console.log(displayHTML);
+          document.getElementById("showFilesAndLinks").innerHTML = displayHTML;
+
+      },
+      error: function(){
+          alert("error");
+      }
+  });
+  }
+  getAllFilesFromServer();
           function toggle_visibility(id, view) {
-//action    =  "http://localhost:5000/upload"
              var e = document.getElementById(id);
              if(view == 'hide')
                 e.style.display = 'none';
