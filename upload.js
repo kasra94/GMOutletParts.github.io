@@ -13,23 +13,6 @@ var csv = require("fast-csv");
 var request = require('request');
 var cheerio = require('cheerio');
 
-var timeout = require('req-timeout');
-
-express.timeout = timeout;
-app.use(express.timeout(300000));
-
-
-app.configure('development', function() {
-  app.use(timeout(300000));
-});
- 
-// timeout the request at 3 seconds 
-app.configure('production', function() {
-  app.use(timeout(300000));
-});
-
-app.use(app.router);
-
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
@@ -237,6 +220,7 @@ app.get('/download', function(req, res){
 
 
 app.post('/upload',function(req,res){
+    res.setTimeout(0);
     upload(req,res,function(err) {
         if(err) {
           console.log(err)
