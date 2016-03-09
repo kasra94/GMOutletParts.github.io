@@ -206,12 +206,21 @@ app.get('/getfiles',function(req,res){
 });
 
 
-app.get('/download',function(req,res){
-  console.log(req.query.url)
-  var file = fs.createWriteStream("file.csv");
-  var request = http.get(req.query.url, function(response) {
-    req.pipe(file);
-  });
+var path = require('path');
+var mime = require('mime');
+
+app.get('/download', function(req, res){
+
+  var file = __dirname + '/' + req.query.url;
+
+  var filename = path.basename(file);
+  var mimetype = mime.lookup(file);
+
+  res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+  res.setHeader('Content-type', mimetype);
+
+  var filestream = fs.createReadStream(file);
+  filestream.pipe(res);
 });
 
 
