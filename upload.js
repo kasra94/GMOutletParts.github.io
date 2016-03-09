@@ -19,6 +19,17 @@ express.timeout = timeout;
 app.use(express.timeout(300000));
 
 
+app.configure('development', function() {
+  app.use(timeout(300000));
+});
+ 
+// timeout the request at 3 seconds 
+app.configure('production', function() {
+  app.use(timeout(300000));
+});
+
+app.use(app.router);
+
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
