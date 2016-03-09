@@ -224,7 +224,7 @@ app.post('/upload',function(req,res){
     upload(req,res,function(err) {
         if(err) {
           console.log(err)
-            res.redirect('http://localhost/GMOutletParts.github.io/upload.html?uploaded=false');
+            res.redirect('http://GMOutletParts.github.io/upload.html?uploaded=false');
         }
         console.log('success...')
         records = [];
@@ -244,7 +244,7 @@ app.post('/upload',function(req,res){
        
         writableStream.on("finish", function(){
           console.log("DONE!");
-          res.redirect('http://localhost/GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
+          res.redirect('http://GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
 
         });
          
