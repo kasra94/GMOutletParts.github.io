@@ -13,10 +13,10 @@ var csv = require("fast-csv");
 var request = require('request');
 var cheerio = require('cheerio');
 
+var timeout = require('req-timeout');
 
-
-
-
+express.timeout = timeout;
+app.use(express.timeout(300000));
 
 
 var storage =   multer.diskStorage({
