@@ -14,7 +14,9 @@
     "async": "1.5.0",
     "multer": "1.1.0",
     "fast-csv": "0.6.0",
-    "node-dir": "0.1.11"
+    "node-dir": "0.1.11",
+    "request": "2.69.0",
+    "cheerio": "0.20.0"
   },
   "engines": {
     "node": "0.10.x"
