@@ -110,7 +110,8 @@
       success: function(result){
           console.log(result);
           var displayHTML = '';
-          for(var i=result.length-1; i>=0; i--){
+          // for(var i=result.length-1; i>=0; i--){
+          for(var i=0; i<result.length; i++){
             var nameOfFile = result[i].substring(17, result[i].length);
             var urlOfFile = result[i].substring(5, result[i].length);
             displayHTML += '<a href="https://gmoutletparts.herokuapp.com/download?url=' +
