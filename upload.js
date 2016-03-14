@@ -47,7 +47,7 @@ var parser = parse({delimiter: ','}, function (err, data) {
   var datetime = new Date();
   // console.log(datetime);
   var csvStream = csv.createWriteStream({headers: true, quoteColumns: {'Product Description': true}}),
-  writableStream = fs.createWriteStream("outputfiles/outputfile.csv");
+  writableStream = fs.createWriteStream("outputfiles/"+getCurrentDateAndTime()+".csv");
  
   writableStream.on("finish", function(){
     console.log("DONE!");
@@ -218,6 +218,10 @@ app.get('/download', function(req, res){
   filestream.pipe(res);
 });
 
+var currentProgressPercentage = 100;
+app.get('/currentProgress', function(req, res){
+  res.json(currentProgressPercentage);
+});
 
 app.post('/upload',function(req,res){
     res.setTimeout(0);
@@ -225,6 +229,7 @@ app.post('/upload',function(req,res){
         if(err) {
           console.log(err)
             res.redirect('http://GMOutletParts.github.io/upload.html?uploaded=false');
+            // res.redirect('http://localhost/GMOutletParts.github.io/upload.html?uploaded=false');
         }
         console.log('success...')
         records = [];
@@ -240,7 +245,13 @@ app.post('/upload',function(req,res){
         var datetime = new Date();
         // console.log(datetime);
         var csvStream = csv.createWriteStream({headers: true, quoteColumns: {'Product Description': true}}),
-        writableStream = fs.createWriteStream("outputfiles/outputfile.csv");
+        // fs.closeSync(fs.openSync('outputfiles/outputfile4.csv', 'w'));
+
+    //     fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
+    //     console.log('It\'s saved! in same location.');
+    // });
+
+        writableStream = fs.createWriteStream("outputfiles/"+getCurrentDateAndTime()+".csv");
        
         writableStream.on("finish", function(){
           console.log("DONE!");
@@ -366,6 +377,7 @@ app.post('/upload',function(req,res){
                       'Product Custom Fields': line[78]
                     });
                     counterLength++;
+                    currentProgressPercentage = 100* counterLength / (totalLength - 1);
                     console.log(counterLength + ' of ' + (totalLength - 1));
                     if(counterLength == totalLength - 1){
                       csvStream.end();
@@ -378,6 +390,7 @@ app.post('/upload',function(req,res){
           callback();
         });
         res.redirect('http://GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
+        // res.redirect('http://localhost/GMOutletParts.github.io/showfiles.html?uploaded=' + (totalLength - 1));
         
     });
     fs.createReadStream(inputFile).pipe(parser);
@@ -387,7 +400,21 @@ app.post('/upload',function(req,res){
   });
 });
 
-
+function getCurrentDateAndTime(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var time = today.getHours()+today.getMinutes()+today.getSeconds();
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = yyyy+mm+dd+time;
+    return today;
+}
 
 
 

@@ -16,7 +16,9 @@
 
   <nav role="navigation" style="height: 109px; background: black">
     <div class="nav-wrapper container">
-      <img src="logo.png" height="109px" width="452px" />
+      <a id="logo-container" href="index.html">
+        <img src="logo.png" height="109px" width="452px" />
+      </a>
       <!-- <a id="logo-container" href="#" class="brand-logo" style="color: white;">Spemco Upload new CSV</a> -->
       <ul class="right hide-on-med-and-down">
         <li style="color: #999; font-size: 20px">Got Questions? We Got Answers.</li>
@@ -51,10 +53,14 @@
           </h4>  
         </div>
 
-        <h5>
-          These are file archives, download the latest one<br/>
-        </h5>
-
+        <div id="progressDiv" style="display: none;">
+          <h5>
+              The current file is being processed...<br/>
+            </h5>
+          <div class="progress">
+            <div class="determinate" id="currentProgressPercentage" style="width: 70%"></div>
+          </div>
+        </div>
         <h5 id="showFilesAndLinks">
           Loading files ...
         </h5>
@@ -67,11 +73,39 @@
   <script src="js/jquery-2.1.1.min.js"></script>
 
 <script type="text/javascript">
+
+  function progressBar(){
+    var myVar = setInterval(function(){ 
+        
+        $.ajax({
+          type: "GET",
+          url: "https://gmoutletparts.herokuapp.com/currentProgress",
+          // url: "http://localhost:5000/currentProgress",
+
+          success: function(result){
+            // console.log(result);
+            if(result == '100'){
+              console.log('this is done');
+              getAllFilesFromServer();
+              toggle_visibility('progressDiv', 'hide');
+              clearInterval(myVar);
+            }else{
+              toggle_visibility('progressDiv', 'show');
+            }
+            $('#currentProgressPercentage').css('width', result+'%');
+          }
+        });
+        
+    }, 2000);
+  }
+  progressBar();
+
   function getAllFilesFromServer(){
 
     $.ajax({
       type: "GET",
       url: "https://gmoutletparts.herokuapp.com/getfiles",
+      // url: "http://localhost:5000/getfiles",
 
       success: function(result){
           console.log(result);
