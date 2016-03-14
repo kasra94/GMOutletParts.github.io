@@ -404,8 +404,8 @@ function getCurrentDateAndTime(){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
-    var time = today.getHours()+today.getMinutes()+today.getSeconds();
     var yyyy = today.getFullYear();
+    var time = today.getHours()+ '' +today.getMinutes()+ '' +today.getSeconds();
     if(dd<10){
         dd='0'+dd
     } 
