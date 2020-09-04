@@ -69,11 +69,11 @@ var parser = parse({delimiter: ','}, function (err, data) {
             var salePrice = '0';
             var listPrice = '0';
 
-            $('#product_price').each( function () {
+            $('.list-value sale-price-value sale-price-amount').each( function () {
                 salePrice = $(this).text();
             });
 
-            $('#product_price2').each( function () {
+            $('.list-value list-price-value price-amount compared').each( function () {
                 listPrice = $(this).text();
             });
 
